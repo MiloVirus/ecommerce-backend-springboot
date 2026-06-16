@@ -47,4 +47,21 @@ public class ProductRepositoryAdapter implements ProductRepository {
                 .map(ProductEntity::toDomain) 
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteProductById(Long id)
+    {
+        jpaProductRepository.deleteById(id);
+    }
+
+    @Override
+    public Product updateProduct(Product product)
+    {
+        ProductEntity entity = ProductEntity.fromDomain(product);
+        ProductEntity updatedEntity = jpaProductRepository.save(entity);
+        Product updatedProduct = updatedEntity.toDomain();
+        
+        return updatedProduct;
+        
+    }
 }
