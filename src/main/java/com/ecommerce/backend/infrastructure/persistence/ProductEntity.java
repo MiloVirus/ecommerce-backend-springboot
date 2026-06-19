@@ -27,14 +27,18 @@ public class ProductEntity {
     @Column(nullable = false)
     private Integer stock;
 
+    @Column(nullable = false)
+    private Boolean isActive = true;
+
     public ProductEntity() {}
 
-    public ProductEntity(Long id, String name, String description, BigDecimal price, Integer stock) {
+    public ProductEntity(Long id, String name, String description, BigDecimal price, Integer stock, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.isActive = isActive;
     }
 
     public Long getId() { return id; }
@@ -58,7 +62,8 @@ public class ProductEntity {
             this.name,
             this.description,
             this.price,
-            this.stock
+            this.stock,
+            this.isActive
         );
     }
 
@@ -68,7 +73,8 @@ public class ProductEntity {
             product.name(),
             product.description(),
             product.price(),
-            product.stock()
+            product.stock(),
+            product.isActive()
         );
     }
 }

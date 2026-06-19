@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductResponseDTO> createProduct(@Valid @RequestBody CreateProductDTO dto)
     {
-        Product productToCreate = new Product(null, dto.name(), dto.description(), dto.price(), dto.stock());
+        Product productToCreate = new Product(null, dto.name(), dto.description(), dto.price(), dto.stock(), true);
 
         Product createdProduct = productService.createProduct(productToCreate);
 
@@ -61,4 +62,14 @@ public class ProductController {
                 .map(product -> ResponseEntity.ok(product)) 
                 .orElse(ResponseEntity.notFound().build()); 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id)
+        {
+            productService.deleteProduct(id);
+
+            return ResponseEntity.noContent().build();
+        }
+    
+    
 }

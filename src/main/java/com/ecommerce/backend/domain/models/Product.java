@@ -6,7 +6,8 @@ public record Product (
     String name,
     String description,
     BigDecimal price,
-    Integer stock
+    Integer stock,
+    boolean isActive
 )
 {
     

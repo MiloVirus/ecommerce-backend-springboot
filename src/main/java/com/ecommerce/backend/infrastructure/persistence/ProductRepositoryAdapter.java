@@ -48,11 +48,6 @@ public class ProductRepositoryAdapter implements ProductRepository {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void deleteProductById(Long id)
-    {
-        jpaProductRepository.deleteById(id);
-    }
 
     @Override
     public Product updateProduct(Product product)

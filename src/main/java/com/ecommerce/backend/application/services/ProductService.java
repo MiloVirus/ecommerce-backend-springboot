@@ -2,6 +2,7 @@ package com.ecommerce.backend.application.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.backend.domain.models.Product;
@@ -30,5 +31,22 @@ public class ProductService {
     public List<Product> getAllProducts()
     {
         return productRepository.findAll();
+    }
+
+    public void deleteProduct(Long id)
+    {
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Product with ID " + id + " does not exist"));
+
+        Product deactivatedProduct = new Product(
+            product.id(),
+            product.name(),
+            product.description(),
+            product.price(),
+            product.stock(),
+            false
+        );
+
+        productRepository.save(deactivatedProduct);
     }
 }
