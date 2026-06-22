@@ -1,4 +1,4 @@
-package com.ecommerce.backend.infrastructure.dtos;
+package com.ecommerce.backend.products.infrastructure.dtos;
 
 import java.time.LocalDateTime;
 import java.util.Map;

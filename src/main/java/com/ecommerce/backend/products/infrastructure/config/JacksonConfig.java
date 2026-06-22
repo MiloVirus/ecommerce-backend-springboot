@@ -1,8 +1,9 @@
-package com.ecommerce.backend.infrastructure.config;
+package com.ecommerce.backend.products.infrastructure.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class JacksonConfig {

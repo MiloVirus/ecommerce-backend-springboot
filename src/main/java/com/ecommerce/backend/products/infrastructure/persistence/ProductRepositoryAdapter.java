@@ -1,4 +1,4 @@
-package com.ecommerce.backend.infrastructure.persistence;
+package com.ecommerce.backend.products.infrastructure.persistence;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import com.ecommerce.backend.domain.models.Product;
-import com.ecommerce.backend.domain.repositories.ProductRepository;
+import com.ecommerce.backend.products.domain.models.Product;
+import com.ecommerce.backend.products.domain.repositories.ProductRepository;
 
 @Component
 public class ProductRepositoryAdapter implements ProductRepository {

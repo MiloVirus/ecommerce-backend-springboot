@@ -1,12 +1,12 @@
-package com.ecommerce.backend.infrastructure.listeners;
+package com.ecommerce.backend.products.infrastructure.listeners;
 import java.util.Set;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import com.ecommerce.backend.application.services.ProductService;
-import com.ecommerce.backend.domain.models.Product;
-import com.ecommerce.backend.infrastructure.dtos.CreateProductDTO;
+import com.ecommerce.backend.products.application.services.ProductService;
+import com.ecommerce.backend.products.domain.models.Product;
+import com.ecommerce.backend.products.infrastructure.dtos.CreateProductDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.validation.ConstraintViolation;

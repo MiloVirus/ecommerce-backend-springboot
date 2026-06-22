@@ -1,9 +1,9 @@
-package com.ecommerce.backend.domain.repositories;
+package com.ecommerce.backend.products.domain.repositories;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.ecommerce.backend.domain.models.Product;
+import com.ecommerce.backend.products.domain.models.Product;
 
 
 public interface ProductRepository {

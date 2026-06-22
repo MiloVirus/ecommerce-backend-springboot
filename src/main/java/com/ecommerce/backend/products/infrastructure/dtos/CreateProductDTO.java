@@ -1,4 +1,4 @@
-package com.ecommerce.backend.infrastructure.dtos;
+package com.ecommerce.backend.products.infrastructure.dtos;
 import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotBlank;

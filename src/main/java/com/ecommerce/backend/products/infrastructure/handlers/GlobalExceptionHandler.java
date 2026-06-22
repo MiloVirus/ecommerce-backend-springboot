@@ -1,4 +1,4 @@
-package com.ecommerce.backend.infrastructure.handlers;
+package com.ecommerce.backend.products.infrastructure.handlers;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ecommerce.backend.infrastructure.dtos.CustomErrorResponse;
+import com.ecommerce.backend.products.infrastructure.dtos.CustomErrorResponse;
 
 @RestControllerAdvice 
 public class GlobalExceptionHandler {

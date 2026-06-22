@@ -1,4 +1,4 @@
-package com.ecommerce.backend.infrastructure.controllers;
+package com.ecommerce.backend.products.infrastructure.controllers;
 
 import java.util.List;
 
@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.backend.application.services.ProductService;
-import com.ecommerce.backend.domain.models.Product;
-import com.ecommerce.backend.infrastructure.dtos.CreateProductDTO;
-import com.ecommerce.backend.infrastructure.dtos.ProductResponseDTO;
+import com.ecommerce.backend.products.application.services.ProductService;
+import com.ecommerce.backend.products.domain.models.Product;
+import com.ecommerce.backend.products.infrastructure.dtos.CreateProductDTO;
+import com.ecommerce.backend.products.infrastructure.dtos.ProductCreatedResponseDTO;
+import com.ecommerce.backend.products.infrastructure.dtos.ProductResponseDTO;
 
 import jakarta.validation.Valid;
 
@@ -31,13 +32,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> createProduct(@Valid @RequestBody CreateProductDTO dto)
+    public ResponseEntity<ProductCreatedResponseDTO> createProduct(@Valid @RequestBody CreateProductDTO dto)
     {
         Product productToCreate = new Product(null, dto.name(), dto.description(), dto.price(), dto.stock(), true);
 
         Product createdProduct = productService.createProduct(productToCreate);
 
-        ProductResponseDTO response = new ProductResponseDTO(
+        ProductCreatedResponseDTO response = new ProductCreatedResponseDTO(
             createdProduct.id(),
             createdProduct.name(),
             createdProduct.description(),
@@ -48,12 +49,15 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts()
-    {
-        List<Product> productsRecieved = productService.getAllProducts();
-        return ResponseEntity.ok(productsRecieved);
+        public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
+            
+            List<ProductResponseDTO> convertedList = productService.getAllProducts()
+                    .stream()
+                    .map(p -> new ProductResponseDTO(p.id(), p.name(), p.description(), p.price()))
+                    .toList(); 
 
-    }
+            return ResponseEntity.ok(convertedList);
+}
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {

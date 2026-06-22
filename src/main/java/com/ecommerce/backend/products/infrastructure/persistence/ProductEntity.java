@@ -1,4 +1,4 @@
-package com.ecommerce.backend.infrastructure.persistence;
+package com.ecommerce.backend.products.infrastructure.persistence;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
@@ -56,8 +56,8 @@ public class ProductEntity {
     public Integer getStock() { return stock; }
     public void setStock(Integer stock) { this.stock = stock; }
 
-    public com.ecommerce.backend.domain.models.Product toDomain() {
-        return new com.ecommerce.backend.domain.models.Product(
+    public com.ecommerce.backend.products.domain.models.Product toDomain() {
+        return new com.ecommerce.backend.products.domain.models.Product(
             this.id,
             this.name,
             this.description,
@@ -67,7 +67,7 @@ public class ProductEntity {
         );
     }
 
-    public static ProductEntity fromDomain(com.ecommerce.backend.domain.models.Product product) {
+    public static ProductEntity fromDomain(com.ecommerce.backend.products.domain.models.Product product) {
         return new ProductEntity(
             product.id(),
             product.name(),

@@ -1,4 +1,4 @@
-package com.ecommerce.backend.domain.models;
+package com.ecommerce.backend.products.domain.models;
 import java.math.BigDecimal;
 
 public record Product (
