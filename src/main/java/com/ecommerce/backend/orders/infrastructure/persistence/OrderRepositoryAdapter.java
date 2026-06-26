@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.kafka.core.KafkaTemplate;
+
 import com.ecommerce.backend.orders.domain.models.Order;
 import com.ecommerce.backend.orders.domain.models.OrderStatus;
 import com.ecommerce.backend.orders.domain.repositories.OrderRepository;
@@ -11,10 +13,12 @@ import com.ecommerce.backend.orders.domain.repositories.OrderRepository;
 public class OrderRepositoryAdapter implements OrderRepository{
 
     private final JpaOrderRepository jpaOrderRepository;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public OrderRepositoryAdapter(JpaOrderRepository jpaOrderRepository)
+    public OrderRepositoryAdapter(JpaOrderRepository jpaOrderRepository, KafkaTemplate<String, String> kafkaTemplate)
     {
         this.jpaOrderRepository = jpaOrderRepository;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
 
@@ -25,6 +29,10 @@ public class OrderRepositoryAdapter implements OrderRepository{
         OrderEntity entity = OrderEntity.fromDomain(order);
         OrderEntity savedOrder = jpaOrderRepository.save(entity);
         Order convertedOrder = savedOrder.toDomain();
+        
+        String messageEvent = "Producto Creado -> ID: " + savedOrder.getId();
+
+        kafkaTemplate.send("orders-events", messageEvent);
 
         return convertedOrder;
     }

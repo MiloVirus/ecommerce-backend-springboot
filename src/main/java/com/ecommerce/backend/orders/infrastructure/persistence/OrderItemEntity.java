@@ -1,6 +1,7 @@
 package com.ecommerce.backend.orders.infrastructure.persistence;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ public class OrderItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "product_id", nullable = false)
     private Long productId;
@@ -34,8 +35,8 @@ public class OrderItemEntity {
         this.priceAtPurchase = priceAtPurchase;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
     public Long getProductId() { return productId; }
     public void setProductId(Long productId) { this.productId = productId; }
     public Long getQuantity() { return quantity; }
