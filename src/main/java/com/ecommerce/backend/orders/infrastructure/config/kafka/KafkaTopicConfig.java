@@ -1,17 +1,18 @@
-package com.ecommerce.backend.products.infrastructure.config.kafka;
+package com.ecommerce.backend.orders.infrastructure.config.kafka;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
-@Configuration("productsKafkaTopicConfig")
+
+@Configuration("ordersKafkaTopicConfig")
 public class KafkaTopicConfig {
 
     @Bean
-    public NewTopic productEventsTopic()
+    public NewTopic orderEventsTopic()
     {
-        return TopicBuilder.name("product-events")
+        return TopicBuilder.name("orders-events")
             .partitions(1)
             .replicas(1)
             .build();

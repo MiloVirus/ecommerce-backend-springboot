@@ -10,6 +10,8 @@ import com.ecommerce.backend.orders.domain.models.Order;
 import com.ecommerce.backend.orders.domain.models.OrderStatus;
 import com.ecommerce.backend.orders.domain.repositories.OrderRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class OrderService {
 
@@ -20,6 +22,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    @Transactional
     public Order createOrder(Order order)
     {
         return orderRepository.saveOrder(order);

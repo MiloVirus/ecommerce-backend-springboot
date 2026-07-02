@@ -55,4 +55,25 @@ public class ProductService {
 
         productRepository.save(deactivatedProduct);
     }
+
+    public void reduceStock(Long productId, Integer quantity) {
+
+        Product product = productRepository.findById(productId)
+            .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
+
+        if (product.stock() < quantity) {
+            throw new IllegalStateException("Stock insuficiente para: " + product.name());
+        }
+
+        Product updatedProduct = new Product(
+            product.id(),
+            product.name(),
+            product.description(),
+            product.price(),
+            product.stock() - quantity, 
+            product.isActive()
+        );
+
+        productRepository.save(updatedProduct);
+    }
 }
