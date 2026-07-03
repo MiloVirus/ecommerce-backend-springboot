@@ -6,10 +6,10 @@ import jakarta.validation.constraints.Positive;
 
 public record OrderItemResponse(
 
-    @NotNull
+    
     Long productId,
 
-    @NotNull
+    
     @Positive
     Long quantity,
 

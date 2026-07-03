@@ -37,4 +37,22 @@ public class OrderService {
     {
         return orderRepository.findByStatus(orderStatus);
     }
+
+    public void updateOrderStatus(UUID id, OrderStatus status)
+    {
+        Order order = orderRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        
+        Order updatedOrder = new Order(
+        order.id(),
+        order.customerId(),
+        status, 
+        order.items(),
+        order.totalAmount()
+    );
+    
+    orderRepository.saveOrder(updatedOrder);
+
+
+    }
  }

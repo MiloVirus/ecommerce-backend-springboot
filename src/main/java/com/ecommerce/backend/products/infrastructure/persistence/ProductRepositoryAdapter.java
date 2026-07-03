@@ -29,7 +29,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
 
         String messageEvent = "Producto Creado -> ID: " + savedProduct.id() + ", Nombre: " + savedProduct.name();
 
-        kafkaTemplate.send("product-events", messageEvent);
+        kafkaTemplate.send("catalog-updates", messageEvent);
 
         return savedProduct;
     }

@@ -30,47 +30,51 @@ public class OrderRepositoryAdapter implements OrderRepository{
     }
 
     @Override
-    public Order saveOrder(Order order)
-    {
-        OrderEntity entity = OrderEntity.fromDomain(order);
-        OrderEntity savedOrder = jpaOrderRepository.save(entity);
-        Order convertedOrder = savedOrder.toDomain();
-        
+public Order saveOrder(Order order)
+{
+    OrderEntity entity = OrderEntity.fromDomain(order);
+    OrderEntity savedOrder = jpaOrderRepository.save(entity);
+    Order convertedOrder = savedOrder.toDomain();
+    
+    
+    if (order.status() == com.ecommerce.backend.orders.domain.models.OrderStatus.PENDING) {
         try {
-      
-        List<OrderItemEventDTO> itemsEvent = savedOrder.getItems().stream()
-            .map(item -> new OrderItemEventDTO(
-                item.getProductId(), 
-                item.getQuantity().intValue(),
-                item.getPriceAtPurchase()
-            ))
-            .toList();
+            List<OrderItemEventDTO> itemsEvent = savedOrder.getItems().stream()
+                .map(item -> new OrderItemEventDTO(
+                    item.getProductId(), 
+                    item.getQuantity().intValue(),
+                    item.getPriceAtPurchase()
+                ))
+                .toList();
 
-        OrderCreatedEventDTO eventDto = new OrderCreatedEventDTO(
-            savedOrder.getId(),       
-            savedOrder.getCustomerId(), 
-            itemsEvent                 
-        );
+            OrderCreatedEventDTO eventDto = new OrderCreatedEventDTO(
+                savedOrder.getId(),       
+                savedOrder.getCustomerId(), 
+                itemsEvent                 
+            );
 
-        // 2. Convertimos el objeto DTO a un String JSON real
-        String jsonMessage = objectMapper.writeValueAsString(eventDto);
+   
+            String jsonMessage = objectMapper.writeValueAsString(eventDto);
 
-        // 3. Enviamos el JSON estructurado por Kafka
-        kafkaTemplate.send("orders-events", jsonMessage);
-        System.out.println("🚀 [Orders] Evento enviado a Kafka con éxito para la orden: " + savedOrder.getId());
+       
+            kafkaTemplate.send("orders-events", jsonMessage);
+            System.out.println("🚀 [Orders] Evento enviado a Kafka con éxito para la orden: " + savedOrder.getId());
 
-    } catch (Exception e) {
-        System.err.println("❌ [Orders] Error al serializar el evento de la orden: " + e.getMessage());
-        e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("❌ [Orders] Error al serializar el evento de la orden: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        System.out.println("🏁 [Orders] Guardado en Base de Datos. SAGA finalizada con éxito. Estado: " + order.status());
     }
 
-        return convertedOrder;
-    }
+    return convertedOrder;
+}
 
     @Override
     public Optional<Order> findById(UUID id)
     {
-        return jpaOrderRepository.findById(id)
+        return jpaOrderRepository.findByIdWithItems(id)
         .map(OrderEntity::toDomain);
     }
 

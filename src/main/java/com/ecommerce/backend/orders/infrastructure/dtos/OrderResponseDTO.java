@@ -15,7 +15,6 @@ public record OrderResponseDTO(
     @NotNull(message = "El ID del cliente no puede ser nulo") 
     Long customerId,
 
-    @NotNull(message = "El monto total no puede ser nulo")
     @PositiveOrZero(message = "El monto total no puede ser negativo") 
     BigDecimal totalAmount,
 
@@ -24,6 +23,6 @@ public record OrderResponseDTO(
 
     @NotNull(message = "La lista de ítems no puede ser nula")
     @NotEmpty(message = "La lista de ítems no puede estar vacía")
-    @Valid // Valida en cascada la lista interna al serializar/documentar
+    @Valid 
     List<OrderItemResponse> items
 ) {}

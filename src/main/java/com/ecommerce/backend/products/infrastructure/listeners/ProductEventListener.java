@@ -52,7 +52,7 @@ public class ProductEventListener {
                 dto.description(),
                 dto.price(),
                 dto.stock(),
-                dto.isActive()
+                true
             );
 
             productService.createProduct(domainProduct);

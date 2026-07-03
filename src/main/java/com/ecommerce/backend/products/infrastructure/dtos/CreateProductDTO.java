@@ -21,10 +21,10 @@ public record CreateProductDTO(
     
     @NotNull(message="Product stock is mandatory")
     @Positive(message="Product stock must be greater than 0")
-    Integer stock,
+    Integer stock
 
 
-    Boolean isActive
+   
 )
     {
 

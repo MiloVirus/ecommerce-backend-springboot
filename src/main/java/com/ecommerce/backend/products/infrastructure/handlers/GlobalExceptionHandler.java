@@ -29,8 +29,8 @@ public class GlobalExceptionHandler {
         CustomErrorResponse errorResponse = new CustomErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
-                "Validación Fallida",
-                "El cuerpo de la petición contiene datos inválidos.",
+                "Validation Failed",
+                "Body has fields with invalid data",
                 errors
         );
 
