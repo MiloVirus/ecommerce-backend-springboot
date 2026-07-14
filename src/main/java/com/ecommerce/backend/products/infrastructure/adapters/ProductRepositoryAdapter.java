@@ -1,4 +1,4 @@
-package com.ecommerce.backend.products.infrastructure.persistence;
+package com.ecommerce.backend.products.infrastructure.adapters;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.ecommerce.backend.products.domain.models.Product;
 import com.ecommerce.backend.products.domain.repositories.ProductRepository;
+import com.ecommerce.backend.products.infrastructure.persistence.JpaProductRepository;
+import com.ecommerce.backend.products.infrastructure.persistence.ProductEntity;
 
 @Component
 public class ProductRepositoryAdapter implements ProductRepository {
